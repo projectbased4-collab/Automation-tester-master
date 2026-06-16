@@ -2,6 +2,8 @@
 
 ## 2026-06-16
 
+- postman-002: Explored Postman UI notes (L1)
+- playwright-008: API mocking + intercept snippet (L2, TS)
 - `selenium/notes/0000-primer-selenium.md` — Selenium quick primer (selenium-001)
 - selenium-002: Install Selenium notes (L1)
 - selenium-003: First WebDriver script snippet (L1, Python)
