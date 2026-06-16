@@ -18,6 +18,12 @@
 - [Install Cypress notes](../cypress/notes/2026-06-16-install-cypress-first-run.md)
 - [First Cypress spec snippet](../cypress/snippets/my-first-cypress-spec.js)
 
+## Selenium
+
+- [Selenium Quick Primer](../selenium/notes/0000-primer-selenium.md)
+- [Install Selenium notes](../selenium/notes/2026-06-16-install-selenium-first-run.md)
+- [First WebDriver script snippet](../selenium/snippets/my-first-webdriver-script.py)
+
 ## Playwright
 
 - [Playwright Quick Primer](../playwright/notes/0000-primer-playwright.md)

@@ -1,5 +1,11 @@
 # Changelog
 
+## 2026-06-16
+
+- `selenium/notes/0000-primer-selenium.md` — Selenium quick primer (selenium-001)
+- selenium-002: Install Selenium notes (L1)
+- selenium-003: First WebDriver script snippet (L1, Python)
+
 ## 2026-06-15
 
 - `postman/notes/0000-primer-postman.md` — Postman quick primer (postman-001)
