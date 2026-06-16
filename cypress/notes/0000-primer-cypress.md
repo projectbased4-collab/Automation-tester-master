@@ -4,42 +4,44 @@
 
 ## What is it?
 
-Cypress is a browser automation testing framework that runs inside the same execution loop as the application you're testing. Unlike Selenium, which talks to browsers through WebDriver from outside, Cypress actually lives inside the browser — it can see everything your app does in real time. If you've used Jest or Mocha for unit testing, Cypress feels familiar because it uses Mocha's test structure and has excellent debugging features built in.
+Cypress is a frontend testing tool — it runs tests inside a real browser, not in a headless simulator like JSDOM. If you've used Selenium or Playwright, it sits in the same category (end-to-end testing of web apps), but Cypress is different architecturally: it runs in the same event loop as the app under test. That means it can see and stub everything — network requests, timers, DOM mutations — without the "test waits 2 seconds for no reason" problem.
+
+It came out in 2017 and got popular fast because the developer experience is polished. You get a dashboard that shows every command with before/after snapshots, plus a time-travel debugger that lets you hover over any step and see what the page looked like at that moment.
 
 ## What does it do?
 
-It lets me write end-to-end tests that interact with my web app just like a real user would — clicking buttons, filling forms, navigating pages. Because Cypress runs in the same run loop as the app, I can stub network requests, spy on function calls, and inspect the DOM at any point during the test. The test runner opens a visual interface where I can see each step happen, time-travel through commands, and debug failures without console.log everywhere.
+It lets me write tests that visit pages, click buttons, type into forms, intercept network calls, and assert on what's visible — all with automatic waiting. No `sleep()` calls. The test runner opens a real browser window (or runs headless), executes the spec, and shows a video recording or screenshot on failure. It also has a built-in fixture system for test data and a command-line dashboard for CI runs.
 
 ## Why does it exist?
 
-Before Cypress, end-to-end testing meant Selenium or older frameworks that were flaky and hard to debug. I'd spend hours figuring out why a test failed because the browser and test runner were separate processes. Cypress solves this by running in the same context, which makes tests more reliable and gives me direct access to the application state. It also bundles everything I need — assertions, mocking, stubbing, screenshots, videos — with zero setup.
+Before Cypress, end-to-end testing meant Selenium or PhantomJS. Selenium is powerful but slow and flaky — I'd spend more time debugging "element not found" races than writing tests. Cypress was built from scratch to fix that: it auto-waits for elements to exist, it runs in-browser so there's no WebDriver handoff latency, and it intercepts network requests at the browser level so I can stub API responses without a separate mock server.
+
+Day to day it's used by frontend devs writing component and E2E tests, QA engineers setting up automated regression suites, and teams that want a visual test dashboard for CI.
 
 ## Key terminology
 
-- **Test Runner** — the interactive GUI that opens when I run `cypress open`, shows my test list and runs them in real browsers. Example: I click a test file and watch it execute step by step.
-- **Spec** — a test file containing one or more test cases, written like Mocha `describe()` and `it()` blocks. Example: `describe('Login', () => { it('works', () => { ... }) })`.
-- **Command** — any Cypress function call like `cy.visit()` or `cy.click()`, queued up and executed in order. Example: `cy.get('button').click()` finds a button and clicks it.
-- **Assertion** — built-in chai checks like `.should('contain', 'text')` that wait and retry until they pass. Example: `cy.get('h1').should('be.visible')` waits for the h1 to appear.
-- **Fixture** — static test data files I can import to avoid hitting real APIs. Example: `cy.fixture('user.json')` loads a mock user object.
-- **Plugin** — code in `plugins/index.js` that runs in Node, giving tests access to filesystem and network. Example: I can read CSV files or start a mock server.
-- **Stub** — replacing a real function or network call with a fake one. Example: `cy.intercept('GET', '/api/users', { fixture: 'users' })` fakes the API response.
-- **Selector** — the string I pass to `cy.get()` to find DOM elements. Example: `'#submit'`, `'[data-testid="login-btn"]'`, or `'form'`.
+- **`cy`** — The global command object. Every Cypress command starts with `cy.` (e.g., `cy.visit('/')`, `cy.get('.button').click()`). It's like jQuery chaining but for test actions.
+- **`describe` / `it`** — Mocha-style BDD test blocks. `describe('Login', () => { it('logs in', ...) })`. Cypress bundles Mocha and Chai under the hood.
+- **Assertions** — Cypress uses Chai's `expect` and `assert`, plus built-in "should" chaining. Example: `cy.get('.message').should('contain', 'Success')`.
+- **Automatic waiting** — The killer feature. `cy.get('.button')` doesn't just query once — it retries until the element exists or a timeout hits. No more `waitForElement` helpers.
+- **Fixtures** — JSON or fixture files stored in `cypress/fixtures/` that I can load as test data. Example: `cy.fixture('user.json').as('user')`.
+- **Intercept** — The network layer API. `cy.intercept('GET', '/api/users', { fixture: 'users.json' })` stubs a network call so tests don't hit a real server.
+- **Cypress Studio** — A beta feature where I can record clicks in the browser and Cypress writes the corresponding test code. Haven't tried it yet.
+- **`cypress.json`** — The config file. Sets base URL, viewport, timeouts, and which files to include.
 
 ## A tiny example
 
-Here's the smallest thing I can think of — visiting a page and checking the title:
-
 ```javascript
-describe('My First Test', () => {
-  it('visits the app and sees the title', () => {
-    cy.visit('https://example.com')
-    cy.get('h1').should('contain', 'Example')
-  })
-})
+describe('Home page', () => {
+  it('loads successfully', () => {
+    cy.visit('/');
+    cy.get('h1').should('contain', 'Welcome');
+  });
+});
 ```
 
-This opens example.com, grabs the h1 element, and asserts it contains "Example".
+This visits a URL, finds an `h1` element, and asserts it contains the text "Welcome" — all with automatic retrying.
 
 ## What I'll cover next
 
-Now that I understand what Cypress is, I want to install it locally and run my first test against a real app — probably something simple I can spin up with `npm init`. After that I'll explore the Cypress UI to make sure time-travel debugging works and try out the automatic waiting on elements.
+Now that I know what Cypress is, I want to install it, create a new project, and get the example spec passing. After that I'll try writing a more realistic test that navigates around and checks form inputs.
