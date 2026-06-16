@@ -12,6 +12,12 @@
 - appium-002: Install Appium notes (L1)
 - appium-003: Start Appium WebDriver session snippet (L1, JS)
 
+## 2026-06-16
+
+- `cypress/notes/0000-primer-cypress.md` — Cypress quick primer (cypress-001)
+- cypress-002: Install Cypress notes (L1)
+- cypress-003: First Cypress spec snippet (L1, JS)
+
 ## 2026-06-15
 
 - Added `playwright/notes/0000-primer-playwright.md` — Playwright quick primer (playwright-001)

@@ -12,6 +12,12 @@
 - [First Postman request notes](../postman/notes/2026-06-15-first-request.md)
 - [First Postman test script snippet](../postman/snippets/first-test-script.js)
 
+## Cypress
+
+- [Cypress Quick Primer](../cypress/notes/0000-primer-cypress.md)
+- [Install Cypress notes](../cypress/notes/2026-06-16-install-cypress-first-run.md)
+- [First Cypress spec snippet](../cypress/snippets/my-first-cypress-spec.js)
+
 ## Playwright
 
 - [Playwright Quick Primer](../playwright/notes/0000-primer-playwright.md)
